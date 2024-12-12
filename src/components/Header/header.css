@@ -1,0 +1,155 @@
+header ul {
+    gap: 16px;
+    display: flex;
+}
+
+header ul li a {
+    color: white;
+    opacity: 0.9;
+    font-size: 0.88rem;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+header ul li a:hover {
+    opacity: 1;
+    font-size: 0.9rem;
+    color: rgba(244, 165, 96);
+}
+
+header.flex {
+    margin-top: 1.2rem;
+    justify-content: space-between;
+    padding: 0 2.4rem;
+}
+
+header.flex nav {
+    background-color: rgba(39, 39, 42);
+    padding: 0.77rem 2rem;
+    border-radius: 55px;
+    box-shadow: 1px 1px 40px rgba(35, 33, 0, 0.292);
+}
+
+header button {
+    font-size: 1.2rem;
+}
+
+header .fixed {
+    position: fixed;
+    inset: 0;
+    z-index: 10;
+    background-color: rgba(40, 40, 48, 0.91);
+}
+
+header .fixed ul.modal {
+    width: 80%;
+    height: 250px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2rem;
+    border-radius: 1rem;
+    padding: 1rem 2rem;
+    background-color: rgb(24, 24, 27);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    animation: move 0.77s 1;
+}
+
+header .fixed ul.modal li {
+    border-bottom: 1px solid gray;
+    padding-bottom: 0.77rem;
+    padding-top: 0.5rem;
+    display: block;
+}
+
+header .fixed ul.modal li:last-child {
+    border: none;
+}
+
+header .fixed ul.modal li a {
+    font-size: 1rem;
+}
+
+header .fixed ul.modal li.close-icon {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    border: none;
+    padding: 0;
+}
+
+.menu {
+    display: none;
+}
+
+.icon-button-close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    background-color: transparent;
+    color: white;
+    font-size: 1.2rem;
+    border: 2px solid rgb(244, 165, 96, 0.249);
+    cursor: pointer;
+    transition: 0.2s;
+   
+}
+.icon-button {
+    padding: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.8rem;
+    height: 2.8rem;
+    border-radius: 50%;
+    background-color: transparent;
+    color: white;
+    font-size: 1.5rem;
+    border: 2px solid rgb(244, 165, 96, 0.249);
+    cursor: pointer;
+    transition: 0.2s;
+   
+}
+.icon-button:hover {
+    border: 1px solid rgba(244, 165, 96);
+}
+
+@keyframes move {
+    0% {scale: 0;}
+    60% {scale: 1.2;}
+    100% {scale: 1;}
+}
+.menu {
+    display: none;
+}
+
+@media screen and (max-width: 768px) {
+    .menu {
+        display: block;
+    }
+    .main-header {
+        display: none;
+    }
+}
+
+/* Dark mode styles */
+body.dark-mode {
+    background-color: #121212;
+    color: white;
+}
+
+body.dark-mode header.flex nav {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode header ul li a {
+    color: white;
+}
+
+body.dark-mode header ul li a:hover {
+    color: rgba(93, 188, 252);
+}
