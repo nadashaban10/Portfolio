@@ -35,7 +35,7 @@ function Hero() {
           className="avatar"
           variants={childVariants}
         />
-        {/* <div className='icon-verified'> <RiVerifiedBadgeFill /> </div> */}
+        <div className='icon-verified'> <RiVerifiedBadgeFill /> </div>
         <motion.h1 
           className='title'
           variants={childVariants}
@@ -65,6 +65,17 @@ function Hero() {
             <FaInstagram /> 
           </a>
         </motion.div>
+        <div>
+          <button className="resume-button">
+            <a 
+              href="https://drive.google.com/file/d/1qm3MWE5UPGRruHA2UrgIGJCt_MkV7gxm/view?usp=sharing" 
+              target="_blank" 
+              rel="noopener noreferrer"
+            >
+              Get Resume
+            </a>
+          </button>
+        </div>
       </motion.div>
       <motion.div 
         className='right-section animation'

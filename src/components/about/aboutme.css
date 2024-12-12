@@ -1,0 +1,48 @@
+.about-me-section {
+  padding: 2rem 1rem;
+margin-top: 50px;
+}
+
+.Devcontainer {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.section-title {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: #ff7f50;;
+}
+
+.section-description {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  line-height: 1.8;
+}
+
+.highlight {
+  color: #007acc;
+  font-weight: bold;
+}
+
+.content {
+  margin-top: 1.5rem;
+}
+
+.subsection-title {
+  font-size: 1.5rem;
+  margin-bottom: 0.8rem;
+  color: #ff7f50;;
+}
+
+.list {
+  list-style-type: disc;
+  padding-left: 1.5rem;
+}
+
+.list li {
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+  line-height: 1.5;
+}

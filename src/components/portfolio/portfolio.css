@@ -1,134 +1,99 @@
+/* General portfolio container styling */
 .portfolio {
-    height: 600vh;
-    position: relative;
-  }
-  
-  .pList {
-    position: sticky;
-    top: 0;
-    display: flex;
-    height: 100vh;
-    width: max-content;
-  }
-  
-  .pItem {
-    height: 100vh;
-    width: 100vw;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 100px;
-  }
-  
-  /* .pItem:nth-child(1) {
-    background: linear-gradient(to right, #12071f, #210b3a);
-  }
-  .pItem:nth-child(2) {
-    background: linear-gradient(to right, #210b3a, #27084a);
-  }
-  .pItem:nth-child(3) {
-    background: linear-gradient(to right, #27084a, #220345);
-  }
-  .pItem:nth-child(4) {
-    background: linear-gradient(to right, #220345, #2a0159);
-  }
-  .pItem:nth-child(5) {
-    background: linear-gradient(to right, #2a0159, #12071f);
-  } */
-  
-  /* WE'LL NOT GIVE BACKGROUND COLOR TO THE FIRST AND LAST ITEMS (to keep scrolling effect consistent) */
-  .pItem:nth-child(3) {
-    background: linear-gradient(to right, transparent, #260622);
-  }
-  
-  .pItem:nth-child(4) {
-    background: linear-gradient(to right, #260622, #02222e);
-  }
-  
-  .pItem:nth-child(5) {
-    background: linear-gradient(to right, #02222e, #12071f);
-  }
-  
-  .pItem:nth-child(6) {
-    background: linear-gradient(to right, #12071f, transparent);
-  }
-  
-  .pProgress {
-    position: sticky;
-    width: 80px;
-    height: 80px;
-    left: 0;
-    bottom: 80%;
-  }
-  
-  .pImg {
-    width: 40%;
-    border-radius: 20px;
-    overflow: hidden;
-  }
-  
-  .pImg img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  
-  .pText {
-    width: 40%;
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-  }
-  
-  .pText h1 {
-    font-size: 56px;
-  }
-  
-  .pText p {
-    font-weight: 300;
-  }
-  
-  .pText button {
-    background-color: pink;
-    padding: 12px;
-    border-radius: 10px;
-    border: none;
-    font-weight: 500;
-    cursor: pointer;
-  }
-  
-  @media (max-width: 1536px) {
-    .pItem {
-      gap: 50px;
-    }
-  }
-  
-  @media (max-width: 1280px) {
-    .pText h1 {
-      font-size: 48px;
-    }
-  }
-  
-  @media (max-width: 1024px) {
-    .pItem {
-      flex-direction: column;
-    }
-  
-    .pImg,
-    .pText {
-      width: 80%;
-    }
-  
-    .pProgress {
-      bottom: 100px;
-      left: 100%;
-    }
-  }
-  
-  @media (max-width: 768px) {
-    .pProgress {
-      width: 50px;
-      height: 50px;
-    }
-  }
+  margin-top: 100px;
+  padding: 40px;
+  text-align: center;
+  background-color: linear-gradient(to bottom, #12071f, #2f204e00 60%);
+}
+
+.portfolio h1 {
+  font-size: 2.5rem;
+  margin-bottom: 40px;
+  color: #fff;
+}
+
+/* Cards container to arrange cards in a grid */
+.cardsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+/* Individual card styling */
+.card {
+  position: relative;
+  width: 350px;
+  height: 250px;
+  overflow: hidden;
+  border-radius: 12px;
+  margin-top: 20px;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Default image display */
+.card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 0.3s ease;
+}
+
+.card:hover img {
+  opacity: 0.2;
+}
+
+/* Hover content styling */
+.hoverContent {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 5px;
+  padding-right: 5px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  text-align: center;
+  color: #fff;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.card:hover .hoverContent {
+  opacity: 1;
+}
+
+.hoverContent h2 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  color: #ff7f50;; /* Light golden color */
+}
+
+.hoverContent p {
+  font-size: 1rem;
+  margin-bottom: 20px;
+  color: #e0e0e0;
+}
+
+.hoverContent button {
+  background: #ff7f50;;
+  color: #12071f;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 1rem;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.hoverContent button:hover {
+  background: #ffeb88; /* Lighter shade of the golden color */
+  transform: scale(1.1);
+}

@@ -1,184 +1,65 @@
-import { useEffect, useRef, useState } from "react";
+import React from "react";
+import { motion } from "framer-motion";
 import "./portfolio.css";
-import { motion, useInView, useScroll, useTransform } from "framer-motion";
 
 const items = [
   {
     id: 1,
-    title: "Simple Admin Dashboard ",
+    title: "Admin Dashboard ",
     description: "A dynamic admin dashboard utilizing Material-UI for a modern interface and Nivo charts for visualizing admin progress and analytics effectively.",
-    img: "https://via.placeholder.com/150",
+    img: "/images/ScrAdmin.png", // Path relative to the public folder
     link: "test-ad-dash-board.vercel.app"
   },
   {
     id: 2,
     title: "Educational Web App",
     description: "A responsive, static website developed for branding and online presence of Arcade Academy.",
-    img: "https://via.placeholder.com/150",
+    img: "/images/educa.png", // Path relative to the public folder
     link: "educational-app-v2.vercel.app"
   },
   {
     id: 3,
-    title: "E-Commerce Web App",
+    title: "E-Commerce App",
     description: "A responsive e-commerce web app built using React for creating dynamic components and Redux Toolkit for managing app-wide state.",
-    img: "https://via.placeholder.com/150",
+    img: "/images/deco.png", // Path relative to the public folder
     link: "deco-furniture-app.vercel.app"
   },
   {
     id: 4,
     title: "Food Delivery App",
     description: "A simple food ordering app built with React.js, featuring user login, add-to-cart, and checkout functionality.",
-    img: "https://via.placeholder.com/150",
+    img: "/images/food.png", // Path relative to the public folder
     link: "food-app-delivery-gamma.vercel.app"
   }
 ];
 
-
-
-
-const imgVariants = {
-  initial: {
-    x: -500,
-    y: 500,
-    opacity: 0,
-  },
-  animate: {
-    x: 0,
-    y: 0,
-    opacity: 1,
-    transition: {
-      duration: 0.5,
-      ease: "easeInOut",
-    },
-  },
-};
-
-const textVariants = {
-  initial: {
-    x: 500,
-    y: 500,
-    opacity: 0,
-  },
-  animate: {
-    x: 0,
-    y: 0,
-    opacity: 1,
-    transition: {
-      duration: 0.5,
-      ease: "easeInOut",
-      staggerChildren: 0.05,
-    },
-  },
-};
-
-const ListItem = ({ item }) => {
-  const ref = useRef();
-
-  const isInView = useInView(ref, { margin: "-100px" });
-
+const Single = ({ item }) => {
   return (
-    <div className="pItem" ref={ref}>
-      <motion.div
-        variants={imgVariants}
-        animate={isInView ? "animate" : "initial"}
-        className="pImg"
-      >
-        <img src={item.img} alt="" />
-      </motion.div>
-      <motion.div
-        variants={textVariants}
-        animate={isInView ? "animate" : "initial"}
-        className="pText"
-      >
-        <motion.h1 variants={textVariants}>{item.title}</motion.h1>
-        <motion.p variants={textVariants}>{item.description}</motion.p>
-        <motion.a variants={textVariants} href={item.link}>
-          <button>View Project</button>
-        </motion.a>
-      </motion.div>
-    </div>
+    <motion.div
+      className="card"
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.6 }}
+    >
+      <img src={item.img} alt={item.title} />
+      <div className="hoverContent">
+        <h2>{item.title}</h2>
+        <p>{item.description}</p>
+        <button onClick={() => window.open(`https://${item.link}`, "_blank")}>See Demo</button>
+      </div>
+    </motion.div>
   );
 };
 
 const Portfolio = () => {
-  const [containerDistance, setContainerDistance] = useState(0);
-  const ref = useRef(null);
-
-  // useEffect(() => {
-  //   if (ref.current) {
-  //     const rect = ref.current.getBoundingClientRect();
-  //     setContainerDistance(rect.left);
-  //   }
-  // }, []);
-
-  // FIX: Re-calculate when screen size changes
-  useEffect(() => {
-    const calculateDistance = () => {
-      if (ref.current) {
-        const rect = ref.current.getBoundingClientRect();
-        setContainerDistance(rect.left);
-      }
-    };
-
-    calculateDistance();
-
-    window.addEventListener("resize", calculateDistance);
-
-    return () => {
-      window.removeEventListener("resize", calculateDistance);
-    };
-  }, []);
-
-  const { scrollYProgress } = useScroll({ target: ref });
-
-  const xTranslate = useTransform(
-    scrollYProgress,
-    [0, 1],
-    [0, -window.innerWidth * items.length]
-  );
-
   return (
-    <div className="portfolio" ref={ref}>
-      <section />
-      <motion.div className="pList" style={{ x: xTranslate }}>
-        <div
-          className="empty"
-          style={{
-            width: window.innerWidth - containerDistance,
-         
-          }}
-        />
+    <div className="portfolio" style={{ background: "linear-gradient(to bottom, #12071f, #2f204e)" }}>
+      <h1>P R O J E C T S</h1>
+      <div className="cardsContainer">
         {items.map((item) => (
-          <ListItem item={item} key={item.id} />
+          <Single item={item} key={item.id} />
         ))}
-      </motion.div>
-      <section />
-      <section />
-      <section />
-      <section />
-   
-  
-      <div className="pProgress">
-        <svg width="100%" height="100%" viewBox="0 0 160 160">
-          <circle
-            cx="80"
-            cy="80"
-            r="70"
-            fill="none"
-            stroke="#ddd"
-            strokeWidth={20}
-          />
-          <motion.circle
-            cx="80"
-            cy="80"
-            r="70"
-            fill="none"
-            stroke="#dd4c62"
-            strokeWidth={20}
-            style={{ pathLength: scrollYProgress }}
-            transform="rotate(-90 80 80)"
-          />
-        </svg>
       </div>
     </div>
   );

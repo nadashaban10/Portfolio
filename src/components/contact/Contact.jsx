@@ -66,14 +66,14 @@ const Contact = () => {
           </motion.h1>
           <motion.div variants={listVariant} className="formItem">
             <label>Name</label>
-            <input type="text" name="user_username" placeholder="John Doe" required />
+            <input type="text" name="user_username" placeholder="Nada shaban" required />
           </motion.div>
           <motion.div variants={listVariant} className="formItem">
             <label>Email</label>
             <input
               type="email"
               name="user_email"
-              placeholder="john@gmail.com"
+              placeholder="nadashapann@gmail.com"
               required
             />
           </motion.div>

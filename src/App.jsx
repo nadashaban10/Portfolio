@@ -1,7 +1,7 @@
 import React from 'react'
 import Hero from './components/Hero/Hero'
-import Services from './components/services/Services'
-// import Portfolio from './components/portfolio/Portfolio'
+import AboutMe from './components/about/AboutMe'
+import Portfolio from './components/portfolio/Portfolio'
 import Contact from './components/contact/Contact'
 import Header from './components/Header/Header'
 
@@ -16,12 +16,12 @@ function App() {
       <section>
     <Hero id='home' />
     </section>
-    <section id='services'>
-    <Services />  
+    <section >
+    <AboutMe />  
     </section>
-    {/* <section id='portfolio'>
+    <section id='portfolio'>
     <Portfolio />
-    </section> */}
+    </section>
     <section id='contact'>
     <Contact />
     </section>

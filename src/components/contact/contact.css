@@ -5,8 +5,9 @@
     width: 100%;
   }
   
-  .cSection {
-    width: 70%;
+  .cSection  {
+    margin-top: 20px;
+    width: 80%;
     height: 100%;
     padding: 20px;
     display: flex;
