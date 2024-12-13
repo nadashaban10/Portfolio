@@ -55,7 +55,7 @@ function Hero() {
           <a href="https://www.linkedin.com/in/nada-shaban-89340a223/" target="_blank" rel="noopener noreferrer"> 
             <FaLinkedin /> 
           </a>
-          <a href="" target="_blank" rel="noopener noreferrer"> 
+          <a href="https://github.com/nadashaban10" target="_blank" rel="noopener noreferrer"> 
             <IoLogoGithub /> 
           </a>
           <a href="https://wa.me/201156647497" target="_blank" rel="noopener noreferrer"> 
