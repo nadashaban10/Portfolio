@@ -54,7 +54,8 @@ const Single = ({ item }) => {
 
 const Portfolio = () => {
   return (
-    <div className="portfolio" style={{ background: "linear-gradient(to bottom, #12071f, #2f204e)" }}>
+    <div className="portfolio" id="projects"
+     style={{ background: "linear-gradient(to bottom, #12071f, #2f204e)" }}>
       <h1>P R O J E C T S</h1>
       <div className="cardsContainer">
         {items.map((item) => (

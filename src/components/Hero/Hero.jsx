@@ -52,23 +52,23 @@ function Hero() {
           className='icons flex'
           variants={childVariants}
         >
-          <a href="https://www.linkedin.com/in/your-linkedin-profile/" target="_blank" rel="noopener noreferrer"> 
+          <a href="https://www.linkedin.com/in/nada-shaban-89340a223/" target="_blank" rel="noopener noreferrer"> 
             <FaLinkedin /> 
           </a>
-          <a href="https://github.com/your-github-username" target="_blank" rel="noopener noreferrer"> 
+          <a href="" target="_blank" rel="noopener noreferrer"> 
             <IoLogoGithub /> 
           </a>
-          <a href="https://wa.me/your-whatsapp-number" target="_blank" rel="noopener noreferrer"> 
+          <a href="https://wa.me/201156647497" target="_blank" rel="noopener noreferrer"> 
             <FaWhatsapp /> 
           </a>
-          <a href="https://www.instagram.com/your-instagram-username" target="_blank" rel="noopener noreferrer"> 
+          <a href="https://www.instagram.com/nshm107/?hl=en" target="_blank" rel="noopener noreferrer"> 
             <FaInstagram /> 
           </a>
         </motion.div>
         <div>
           <button className="resume-button">
             <a 
-              href="https://drive.google.com/file/d/1qm3MWE5UPGRruHA2UrgIGJCt_MkV7gxm/view?usp=sharing" 
+              href="https://drive.google.com/file/d/1pEdToFofNxHUiog8HWKk_nbg0iuNoKsx/view?usp=sharing" 
               target="_blank" 
               rel="noopener noreferrer"
             >

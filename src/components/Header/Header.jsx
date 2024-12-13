@@ -22,10 +22,9 @@ function Header() {
         <div></div>
         <nav className='main-header'>
           <ul>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Projects</a></li>
-            <li><a href="#">Portfolio</a></li>
-            <li><a href="#">Contact</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#contact">Contact</a></li>
           </ul>
         </nav>
         <button className="icon-button" onClick={toggleDarkMode}>

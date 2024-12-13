@@ -14,7 +14,8 @@ const AboutMe = () => {
   };
 
   return (
-    <section className="about-me-section">
+    <section id="about"
+     className="about-me-section">
       <motion.div 
         className="Devcontainer"
         variants={containerVariants}
