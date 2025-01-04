@@ -3,26 +3,27 @@ import { motion } from "framer-motion";
 import "./portfolio.css";
 
 const items = [
+  
+    {
+      "id": 1,
+      "title": "E-Commerce App",
+      "description": "A full-stack e-commerce web application enabling users to browse products, manage their cart, and place orders online. Built using React for creating dynamic components, Redux Toolkit for state management",
+      "img": "/images/deco.png", 
+      "link": "deco-furniture-app.vercel.app"
+    },
   {
-    id: 1,
+    id: 2,
     title: "Admin Dashboard ",
     description: "A dynamic admin dashboard utilizing Material-UI for a modern interface and Nivo charts for visualizing admin progress and analytics effectively.",
     img: "/images/ScrAdmin.png", // Path relative to the public folder
     link: "test-ad-dash-board.vercel.app"
   },
   {
-    id: 2,
+    id: 3,
     title: "Educational Web App",
     description: "A responsive, static website developed for branding and online presence of Arcade Academy.",
     img: "/images/educa.png", // Path relative to the public folder
     link: "educational-app-v2.vercel.app"
-  },
-  {
-    id: 3,
-    title: "E-Commerce App",
-    description: "A responsive e-commerce web app built using React for creating dynamic components and Redux Toolkit for managing app-wide state.",
-    img: "/images/deco.png", // Path relative to the public folder
-    link: "deco-furniture-app.vercel.app"
   },
   {
     id: 4,
@@ -30,7 +31,15 @@ const items = [
     description: "A simple food ordering app built with React.js, featuring user login, add-to-cart, and checkout functionality.",
     img: "/images/food.png", // Path relative to the public folder
     link: "food-app-delivery-gamma.vercel.app"
-  }
+  },
+  {
+    id: 5,
+    title: "Hayms sofware company",
+    description: "A responsive, static website developed for branding and online presence of Hayms software company.",
+    img: "/images/softwarecompany.png", 
+    link: "https://company-web-app-iota.vercel.app"
+  },
+  
 ];
 
 const Single = ({ item }) => {

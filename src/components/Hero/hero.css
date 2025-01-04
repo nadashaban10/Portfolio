@@ -1,7 +1,11 @@
 section.hero {
+ 
     margin-top: 3rem;
     display: flex;
     align-items: center;
+}
+h1 {
+    color: rgb(233, 233, 255);
 }
 
 section.hero .parent-avatar {

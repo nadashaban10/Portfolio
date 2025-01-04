@@ -7,7 +7,7 @@ import ContactSvg from "./ContactSvg";
 
 const listVariant = {
   initial: {
-    x: 100,
+    x: 10,
     opacity: 0,
   },
   animate: {

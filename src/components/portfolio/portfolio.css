@@ -1,15 +1,33 @@
 /* General portfolio container styling */
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  padding-top: 50px;
+}
+
 .portfolio {
   margin-top: 100px;
-  padding: 40px;
+  background-color: #fff;
   text-align: center;
   background-color: linear-gradient(to bottom, #12071f, #2f204e00 60%);
 }
 
 .portfolio h1 {
   font-size: 2.5rem;
-  margin-bottom: 40px;
   color: #fff;
+  padding:30px; 
+}
+
+/* Media query for small screens */
+@media (max-width: 768px) {
+  .portfolio h1 {
+    font-size: 1.8rem; /* Smaller font size for h1 on small screens */
+    padding: 15px; /* Adding additional padding for better spacing */
+  }
 }
 
 /* Cards container to arrange cards in a grid */
@@ -72,8 +90,7 @@
 
 .hoverContent h2 {
   font-size: 1.5rem;
-  margin-bottom: 10px;
-  color: #ff7f50;; /* Light golden color */
+  color: #ff7f50; /* Light golden color */
 }
 
 .hoverContent p {
@@ -83,7 +100,7 @@
 }
 
 .hoverContent button {
-  background: #ff7f50;;
+  background: #ff7f50;
   color: #12071f;
   border: none;
   padding: 10px 20px;
