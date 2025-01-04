@@ -37,7 +37,7 @@ const items = [
     title: "Hayms sofware company",
     description: "A responsive, static website developed for branding and online presence of Hayms software company.",
     img: "/images/softwarecompany.png", 
-    link: "https://company-web-app-iota.vercel.app/"
+    link: "https://company-web-app-iota.vercel.app"
   },
   
 ];
