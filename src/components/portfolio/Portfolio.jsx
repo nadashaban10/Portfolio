@@ -1,77 +1,179 @@
-import React from "react";
-import { motion } from "framer-motion";
+import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import "./portfolio.css";
+import { FaArrowRight, FaGithub, FaExternalLinkAlt } from "react-icons/fa";
 
 const items = [
-  
-    {
-      "id": 1,
-      "title": "E-Commerce App",
-      "description": "A full-stack e-commerce web application enabling users to browse products, manage their cart, and place orders online. Built using React for creating dynamic components, Redux Toolkit for state management",
-      "img": "/images/deco.png", 
-      "link": "deco-furniture-app.vercel.app"
-    },
+  {
+    id: 1,
+    title: "Deco Furniture",
+    description: "A full-stack e-commerce platform with product browsing, cart management, and seamless order flows. Built with React and Redux.",
+    img: "/images/deco.png",
+    link: "https://deco-furniture-app.vercel.app",
+    github: "https://github.com/nadashaban10",
+    tags: ["React", "Redux", "CSS"],
+    category: "React",
+  },
   {
     id: 2,
-    title: "Admin Dashboard ",
-    description: "A dynamic admin dashboard utilizing Material-UI for a modern interface and Nivo charts for visualizing admin progress and analytics effectively.",
-    img: "/images/ScrAdmin.png", // Path relative to the public folder
-    link: "test-ad-dash-board.vercel.app"
+    title: "Admin Dashboard",
+    description: "Dynamic admin dashboard utilizing Material-UI for a modern interface and Nivo charts for deep analytics visualization.",
+    img: "/images/ScrAdmin.png",
+    link: "https://test-ad-dash-board.vercel.app",
+    github: "https://github.com/nadashaban10",
+    tags: ["React", "MUI", "Charts"],
+    category: "React",
   },
   {
     id: 3,
-    title: "Educational Web App",
-    description: "A responsive, static website developed for branding and online presence of Arcade Academy.",
-    img: "/images/educa.png", // Path relative to the public folder
-    link: "educational-app-v2.vercel.app"
+    title: "Educational Platform",
+    description: "Responsive website developed for Arcade Academy's branding, featuring modern design and smooth user experience.",
+    img: "/images/educa.png",
+    link: "https://educational-app-v2.vercel.app",
+    github: "https://github.com/nadashaban10",
+    tags: ["HTML", "CSS", "JS"],
+    category: "Static",
   },
   {
     id: 4,
     title: "Food Delivery App",
-    description: "A simple food ordering app built with React.js, featuring user login, add-to-cart, and checkout functionality.",
-    img: "/images/food.png", // Path relative to the public folder
-    link: "food-app-delivery-gamma.vercel.app"
+    description: "Interactive food ordering application with user authentication, stateful cart functionality, and streamlined checkout.",
+    img: "/images/food.png",
+    link: "https://food-app-delivery-gamma.vercel.app",
+    github: "https://github.com/nadashaban10",
+    tags: ["React", "CSS"],
+    category: "React",
   },
   {
     id: 5,
-    title: "Hayms sofware company",
-    description: "A responsive, static website developed for branding and online presence of Hayms software company.",
-    img: "/images/softwarecompany.png", 
-    link: "https://company-web-app-iota.vercel.app"
+    title: "Hayms Software",
+    description: "Corporate branding website developed for Hayms Software Company, highlighting their services and portfolio.",
+    img: "/images/softwarecompany.png",
+    link: "https://company-web-app-iota.vercel.app",
+    github: "https://github.com/nadashaban10",
+    tags: ["HTML", "CSS", "JS"],
+    category: "Static",
   },
-  
 ];
 
-const Single = ({ item }) => {
+const FILTERS = ["All", "React", "Static"];
+
+const cardVariants = {
+  hidden: { opacity: 0, scale: 0.8, y: 50, rotateX: -15 },
+  visible: { 
+    opacity: 1, 
+    scale: 1, 
+    y: 0, 
+    rotateX: 0,
+    transition: { duration: 0.8, type: "spring", bounce: 0.4 } 
+  },
+  exit: { opacity: 0, scale: 0.9, transition: { duration: 0.4 } },
+};
+
+const Card = ({ item }) => {
   return (
-    <motion.div
-      className="card"
-      initial={{ opacity: 0, y: 50 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.6 }}
+    <motion.article
+      className="project-card"
+      variants={cardVariants}
+      initial="hidden"
+      whileInView="visible"
+      exit="exit"
+      viewport={{ once: true, amount: 0.1 }}
+      whileHover={{ y: -10, transition: { duration: 0.3 } }}
+      layout
     >
-      <img src={item.img} alt={item.title} />
-      <div className="hoverContent">
-        <h2>{item.title}</h2>
-        <p>{item.description}</p>
-        <button onClick={() => window.open(`https://${item.link}`, "_blank")}>See Demo</button>
+      <div className="card-image-container">
+        <div className="card-overlay"></div>
+        <img src={item.img} alt={item.title} className="card-image" loading="lazy" />
+        
+        {/* Floating action buttons appear on hover */}
+        <div className="card-quick-actions">
+          <a href={item.link} target="_blank" rel="noopener noreferrer" aria-label="View Demo">
+            <FaExternalLinkAlt />
+          </a>
+          <a href={item.github} target="_blank" rel="noopener noreferrer" aria-label="View Source">
+            <FaGithub />
+          </a>
+        </div>
       </div>
-    </motion.div>
+      
+      <div className="card-content">
+        <div className="card-meta">
+          <div className="card-tags">
+            {item.tags.map((tag) => (
+              <span className="card-tag" key={tag}>{tag}</span>
+            ))}
+          </div>
+        </div>
+        
+        <h3 className="card-title">{item.title}</h3>
+        <p className="card-desc">{item.description}</p>
+        
+        <a href={item.link} target="_blank" rel="noopener noreferrer" className="card-cta">
+          Explore Project <FaArrowRight className="cta-icon" />
+        </a>
+      </div>
+    </motion.article>
   );
 };
 
 const Portfolio = () => {
+  const [active, setActive] = useState("All");
+  const filtered = active === "All" ? items : items.filter((i) => i.category === active);
+
   return (
-    <div className="portfolio" id="projects"
-     style={{ background: "linear-gradient(to bottom, #12071f, #2f204e)" }}>
-      <h1>P R O J E C T S</h1>
-      <div className="cardsContainer">
-        {items.map((item) => (
-          <Single item={item} key={item.id} />
-        ))}
+    <section id="projects" className="portfolio-section">
+      <div className="container">
+        <div className="section-header">
+          <motion.span 
+            className="section-badge"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            Selected Work
+          </motion.span>
+          <motion.h2 
+            className="section-title"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+          >
+            Featured Projects
+          </motion.h2>
+          <motion.p 
+            className="section-subtitle"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+          >
+            A showcase of my recent work in frontend development, spanning from complex React applications to polished static sites.
+          </motion.p>
+        </div>
+
+        <div className="filter-container">
+          {FILTERS.map((f) => (
+            <button
+              key={f}
+              className={`filter-btn ${active === f ? "active" : ""}`}
+              onClick={() => setActive(f)}
+            >
+              {f}
+            </button>
+          ))}
+        </div>
+
+        <motion.div className="projects-grid" layout>
+          <AnimatePresence mode="popLayout">
+            {filtered.map((item) => (
+              <Card item={item} key={item.id} />
+            ))}
+          </AnimatePresence>
+        </motion.div>
       </div>
-    </div>
+    </section>
   );
 };
 
