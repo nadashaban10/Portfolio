@@ -57,27 +57,6 @@ function Hero() {
             Hi, I'm <strong className="text-accent">Nada Shaban</strong>. A Frontend Developer specializing in React and Next.js, currently building scalable interfaces and enterprise dashboards in the fintech sector.
           </motion.p>
 
-          <motion.div className="hero-actions" variants={item}>
-            <motion.a 
-              href="#projects" 
-              className="btn-primary"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              Latest Work
-            </motion.a>
-            <motion.a 
-              href="https://drive.google.com/file/d/1pEdToFofNxHUiog8HWKk_nbg0iuNoKsx/view?usp=sharing" 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              className="btn-ghost"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <HiOutlineDownload style={{ fontSize: '1.2rem' }} /> Resume
-            </motion.a>
-          </motion.div>
-
           <motion.div className="hero-socials" variants={item}>
             <motion.a whileHover={{ y: -5, scale: 1.2 }} href="https://www.linkedin.com/in/nada-shaban-89340a223/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
               <FaLinkedin />
