@@ -39,16 +39,17 @@ export default function Hero() {
       <div className="container hero-grid">
         <div className="hero-copy">
           <motion.p className="eyebrow hero-kicker" {...staggeredReveal(0)}>
-            Frontend Engineer <span aria-hidden="true">·</span> FinTech
-            <span aria-hidden="true">·</span> {profile.location}
+            Frontend Engineer <span aria-hidden="true">·</span> React
+            <span aria-hidden="true">·</span> Next.js
+            <span aria-hidden="true">·</span> TypeScript
           </motion.p>
 
           <motion.h1
             id="hero-title"
             {...staggeredReveal(0.06)}
           >
-            Building frontend systems for{" "}
-            <span className="hero-highlight">real-world products.</span>
+            I build web experiences that bring{" "}
+            <span className="hero-highlight">complex ideas to life.</span>
           </motion.h1>
 
           <motion.p
