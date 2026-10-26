@@ -1,32 +1,27 @@
-import React from 'react'
-import Hero from './components/Hero/Hero'
-import AboutMe from './components/about/AboutMe'
-import Portfolio from './components/portfolio/Portfolio'
-import Contact from './components/contact/Contact'
-import Header from './components/Header/Header'
+import Header from "./components/Header/Header";
+import Hero from "./components/Hero/Hero";
+import Experience from "./components/experience/Experience";
+import Portfolio from "./components/portfolio/Portfolio";
+import Engineering from "./components/engineering/Engineering";
+import AboutMe from "./components/about/AboutMe";
+import Contact from "./components/contact/Contact";
+import Footer from "./components/Footer/Footer";
+import PointerAura from "./components/cursor/PointerAura";
 
-
-
-function App() {
+export default function App() {
   return (
-    <div className="container ">
-      <section>
-        <Header />
-        </section>
-      <section>
-    <Hero id='home' />
-    </section>
-    <section >
-    <AboutMe />  
-    </section>
-    <section id='portfolio'>
-    <Portfolio />
-    </section>
-    <section id='contact'>
-    <Contact />
-    </section>
-    </div>
-  )
+    <>
+      <PointerAura />
+      <Header />
+      <main id="content">
+        <Hero />
+        <Experience />
+        <Portfolio />
+        <Engineering />
+        <AboutMe />
+        <Contact />
+      </main>
+      <Footer />
+    </>
+  );
 }
-
-export default App

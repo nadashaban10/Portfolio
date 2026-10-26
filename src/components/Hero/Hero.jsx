@@ -1,100 +1,160 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import './hero.css';
-import { RiVerifiedBadgeFill } from "react-icons/ri";
-import img from "../../../public/images/WhatappImage.jpg";
-import { FaLinkedin, FaWhatsapp } from "react-icons/fa";
-import { IoLogoGithub } from "react-icons/io";
-import { FaInstagram } from "react-icons/fa";
-import devAnimation from "../../../public/animation/Animation - 1734001703754.json";
-import Lottie from "react-lottie";
 
-function Hero() {
+import { useState } from "react";
+import { motion } from "framer-motion";
+import { LuGithub, LuLinkedin, LuArrowDownRight, LuArrowUpRight } from "react-icons/lu";
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { delay: 0.5, duration: 0.5 } },
-  };
+import { latticeNodes, profile } from "../../data/site";
+import usePrefersReducedMotion from "../../hooks/usePrefersReducedMotion";
+import Magnet from "../ui/Magnet";
+import SystemLattice from "./SystemLattice";
 
-  const childVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
-  };
+export default function Hero() {
+  const reduced = usePrefersReducedMotion();
+  const [activeId, setActiveId] = useState(latticeNodes[0]?.id);
+
+  const reveal = reduced
+    ? {}
+    : {
+        initial: { opacity: 0, y: 16 },
+        animate: { opacity: 1, y: 0 },
+        transition: {
+          duration: 0.55,
+          ease: [0.22, 1, 0.36, 1],
+        },
+      };
+
+  const staggeredReveal = (delay) =>
+    reduced
+      ? {}
+      : {
+          ...reveal,
+          transition: {
+            ...reveal.transition,
+            delay,
+          },
+        };
 
   return (
-    <section className='hero flex'>
-      <motion.div 
-        className="parent-avatar"
-        variants={containerVariants}
-        initial="hidden"
-        animate="visible"
-      >
-        <motion.img 
-          src={img} 
-          alt="avatar" 
-          className="avatar"
-          variants={childVariants}
-        />
-        <div className='icon-verified'> <RiVerifiedBadgeFill /> </div>
-        <motion.h1 
-          className='title'
-          variants={childVariants}
-        >Front-End Developer </motion.h1 > 
-        <motion.p 
-          className='sub-title'
-          variants={childVariants}
-        > 
-          A passionate and skilled Frontend Developer with a strong focus on creating user-friendly and visually appealing web experiences. 
-          I have expertise in HTML, CSS, JavaScript, and popular frontend frameworks like React. 
-          I am always eager to learn new technologies and improve my skills to deliver high-quality projects. 
-         </motion.p>
-        <motion.div 
-          className='icons flex'
-          variants={childVariants}
-        >
-          <a href="https://www.linkedin.com/in/nada-shaban-89340a223/" target="_blank" rel="noopener noreferrer"> 
-            <FaLinkedin /> 
-          </a>
-          <a href="https://github.com/nadashaban10" target="_blank" rel="noopener noreferrer"> 
-            <IoLogoGithub /> 
-          </a>
-          <a href="https://wa.me/201156647497" target="_blank" rel="noopener noreferrer"> 
-            <FaWhatsapp /> 
-          </a>
-          <a href="https://www.instagram.com/nshm107/?hl=en" target="_blank" rel="noopener noreferrer"> 
-            <FaInstagram /> 
-          </a>
-        </motion.div>
-        <div>
-          <button className="resume-button">
-            <a 
-              href="https://drive.google.com/file/d/1pEdToFofNxHUiog8HWKk_nbg0iuNoKsx/view?usp=sharing" 
-              target="_blank" 
-              rel="noopener noreferrer"
-            >
-              Get Resume
-            </a>
-          </button>
+    <section className="hero" id="top" aria-labelledby="hero-title">
+      <div className="container hero-grid">
+        <div className="hero-copy">
+          <motion.p className="eyebrow hero-kicker" {...staggeredReveal(0)}>
+            Frontend Engineer <span aria-hidden="true">·</span> FinTech
+            <span aria-hidden="true">·</span> {profile.location}
+          </motion.p>
+
+          <motion.h1
+            id="hero-title"
+            {...staggeredReveal(0.06)}
+          >
+            Building frontend systems for{" "}
+            <span className="hero-highlight">real-world products.</span>
+          </motion.h1>
+
+          <motion.p
+            className="hero-lede"
+            {...staggeredReveal(0.12)}
+          >
+            I’m a Frontend Engineer with 2+ years of experience building
+            production web applications. At PaySky, I work on multi-tenant
+            commerce platforms, merchant dashboards, payment workflows, and
+            financial applications using React, Next.js, Angular, and
+            TypeScript.
+          </motion.p>
+
+          {/* <motion.p
+            className="hero-supporting-copy"
+            {...staggeredReveal(0.16)}
+          >
+            I care about maintainable architecture, reusable systems, and
+            turning complex business requirements into reliable user
+            experiences. I’m also expanding my skills in backend development
+            and AI-powered applications.
+          </motion.p> */}
+
+          <motion.div
+            className="hero-actions"
+            {...staggeredReveal(0.2)}
+          >
+            <Magnet>
+              <a className="btn btn-primary btn-still" href="#projects">
+                Explore my work
+                <LuArrowDownRight aria-hidden="true" />
+              </a>
+            </Magnet>
+
+            <Magnet>
+              <a
+                className="btn btn-secondary"
+                href={`mailto:${profile.email}`}
+              >
+                Get in touch
+                <LuArrowUpRight aria-hidden="true" />
+              </a>
+            </Magnet>
+          </motion.div>
+
+          <motion.ul
+            className="hero-links"
+            {...staggeredReveal(0.26)}
+            aria-label="Professional profiles"
+          >
+            <li>
+              <a
+                href={profile.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Visit my GitHub profile"
+              >
+                <LuGithub aria-hidden="true" />
+                GitHub
+                <LuArrowUpRight aria-hidden="true" />
+              </a>
+            </li>
+
+            <li>
+              <a
+                href={profile.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Visit my LinkedIn profile"
+              >
+                <LuLinkedin aria-hidden="true" />
+                LinkedIn
+                <LuArrowUpRight aria-hidden="true" />
+              </a>
+            </li>
+          </motion.ul>
         </div>
-      </motion.div>
-      <motion.div 
-        className='right-section animation'
-        variants={containerVariants}
-        initial="hidden"
-        animate="visible"
-      > 
-        <Lottie
-          options={{
-            animationData: devAnimation, 
-            loop: true, 
-            autoplay: true 
-          }}
-          height={360}
-          width={360}
-        />
-      </motion.div>
+
+        <motion.div
+          className="hero-visual"
+          {...staggeredReveal(0.16)}
+        >
+          <SystemLattice
+            activeId={activeId}
+            onHover={(id) => {
+              if (id) setActiveId(id);
+            }}
+          />
+
+          <div className="lattice-legend" aria-label="Explore engineering concepts">
+            {latticeNodes.map((node) => (
+              <button
+                key={node.id}
+                type="button"
+                className={node.id === activeId ? "is-active" : undefined}
+                aria-pressed={node.id === activeId}
+                onClick={() => setActiveId(node.id)}
+                onMouseEnter={() => setActiveId(node.id)}
+                onFocus={() => setActiveId(node.id)}
+              >
+                {node.label}
+              </button>
+            ))}
+          </div>
+        </motion.div>
+      </div>
     </section>
   );
 }
-
-export default Hero;

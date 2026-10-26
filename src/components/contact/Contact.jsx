@@ -1,103 +1,154 @@
-import "./contact.css";
-import { motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 import emailjs from "@emailjs/browser";
-import { useRef, useState } from "react";
-import { useInView } from "framer-motion";
-import ContactSvg from "./ContactSvg";
+import { LuFileText, LuGithub, LuLinkedin, LuMail, LuMapPin, LuMessageCircle } from "react-icons/lu";
+import { profile } from "../../data/site";
+import SectionHeading from "../ui/SectionHeading";
 
-const listVariant = {
-  initial: {
-    x: 10,
-    opacity: 0,
-  },
-  animate: {
-    x: 0,
-    opacity: 1,
-    transition: {
-      duration: 0.5,
-      staggerChildren: 0.2,
-    },
-  },
-};
+const canSend = Boolean(
+  import.meta.env.VITE_SERVICE_ID
+  && import.meta.env.VITE_TEMPLATE_ID
+  && import.meta.env.VITE_PUBLIC_KEY
+);
 
-const Contact = () => {
-  const [success, setSuccess] = useState(false);
-  const [error, setError] = useState(false);
+function toastCopy(raw) {
+  if (/invalid grant|reconnect your gmail/i.test(raw)) {
+    return "Gmail needs to be reconnected in the EmailJS dashboard before this form can send.";
+  }
+  return raw || "The form did not send. Use the email address instead.";
+}
 
-  const ref = useRef();
-  const form = useRef();
+function setHidden(form, name, value) {
+  let field = form.querySelector(`input[type="hidden"][name="${name}"]`);
+  if (!field) {
+    field = document.createElement("input");
+    field.type = "hidden";
+    field.name = name;
+    form.appendChild(field);
+  }
+  field.value = value;
+}
 
-  const sendEmail = (e) => {
-    e.preventDefault();
+export default function Contact() {
+  const formRef = useRef(null);
+  const [status, setStatus] = useState("idle");
+  const [toast, setToast] = useState(null);
 
+  const onSubmit = (event) => {
+    event.preventDefault();
+    const form = formRef.current;
+    if (!canSend || !form) return;
+    const name = form.user_name.value.trim();
+    const email = form.user_email.value.trim();
+    const message = form.message.value.trim();
+    setHidden(form, "from_name", name);
+    setHidden(form, "user_username", name);
+    setHidden(form, "reply_to", email);
+    setHidden(form, "from_email", email);
+    setHidden(form, "user_message", message);
+    setHidden(form, "to_email", profile.email);
+    setStatus("sending");
+    setToast(null);
     emailjs
       .sendForm(
         import.meta.env.VITE_SERVICE_ID,
         import.meta.env.VITE_TEMPLATE_ID,
-        form.current,
-        import.meta.env.VITE_PUBLIC_KEY
+        form,
+        { publicKey: import.meta.env.VITE_PUBLIC_KEY }
       )
-      .then(
-        () => {
-          setSuccess(true);
-          setError(false);
-        },
-        (error) => {
-          console.log(error);
-          setError(true);
-          setSuccess(false);
-        }
-      );
+      .then(() => {
+        setStatus("success");
+        form.reset();
+        setToast({ kind: "success", text: "Message sent. I will reply by email." });
+      })
+      .catch((error) => {
+        const raw = typeof error?.text === "string" ? error.text : "";
+        setStatus("error");
+        setToast({ kind: "error", text: toastCopy(raw), detail: raw });
+      });
   };
 
-  const isInView = useInView(ref, { margin: "-200px" });
+  useEffect(() => {
+    if (!toast) return undefined;
+    const timer = window.setTimeout(() => setToast(null), 8000);
+    return () => window.clearTimeout(timer);
+  }, [toast]);
 
   return (
-    <div className="contact" ref={ref} id="contact">
-      <div className="cSection">
-        <motion.form
-          ref={form}
-          variants={listVariant}
-          animate={isInView ? "animate" : "initial"}
-          onSubmit={sendEmail}
-        >
-          <motion.h1 variants={listVariant} className="cTitle">
-            Let's keep in touch
-          </motion.h1>
-          <motion.div variants={listVariant} className="formItem">
-            <label>Name</label>
-            <input type="text" name="user_username" placeholder="Nada shaban" required />
-          </motion.div>
-          <motion.div variants={listVariant} className="formItem">
-            <label>Email</label>
-            <input
-              type="email"
-              name="user_email"
-              placeholder="nadashapann@gmail.com"
-              required
-            />
-          </motion.div>
-          <motion.div variants={listVariant} className="formItem">
-            <label>Message</label>
-            <textarea
-              rows={10}
-              name="user_message"
-              placeholder="Write your message..."
-              required
-            ></textarea>
-          </motion.div>
-          <motion.button variants={listVariant} className="formButton">
-            Send
-          </motion.button>
-          {success && <span>Your message has been sent!</span>}
-          {error && <span>Something went wrong!</span>}
-        </motion.form>
-      </div>
-      <div className="cSection">
-        <ContactSvg />
-      </div>
-    </div>
-  );
-};
+    <section className="section contact-section" id="contact">
+      <div className="container contact-layout">
+        <div>
+          <SectionHeading
+            eyebrow="Contact"
+            title="If a frontend role is open, I would like to hear about it."
+            lede="I am interested in frontend positions, including mid-level ones, and in conversations about product work. Technical collaboration is welcome too."
+          />
+          <ul className="contact-list">
+            <li>
+              <LuMail aria-hidden="true" />
+              <a href={`mailto:${profile.email}`}>{profile.email}</a>
+            </li>
+            <li>
+              <LuLinkedin aria-hidden="true" />
+              <a href={profile.linkedin} target="_blank" rel="noreferrer">LinkedIn</a>
+            </li>
+            <li>
+              <LuGithub aria-hidden="true" />
+              <a href={profile.github} target="_blank" rel="noreferrer">GitHub</a>
+            </li>
+            <li>
+              <LuMessageCircle aria-hidden="true" />
+              <a href={profile.whatsapp} target="_blank" rel="noreferrer">WhatsApp · {profile.whatsappLabel}</a>
+            </li>
+            <li>
+              <LuMapPin aria-hidden="true" />
+              <span>{profile.location}</span>
+            </li>
+            <li>
+              <LuFileText aria-hidden="true" />
+              {profile.cv ? (
+                <a href={profile.cv} download>View CV</a>
+              ) : (
+                <a href={`mailto:${profile.email}?subject=CV%20request`}>Request CV by email</a>
+              )}
+            </li>
+          </ul>
+        </div>
 
-export default Contact;
+        {canSend ? (
+          <form ref={formRef} className="contact-form" onSubmit={onSubmit}>
+            <div className="field">
+              <label htmlFor="user_name">Name</label>
+              <input id="user_name" name="user_name" type="text" autoComplete="name" required />
+            </div>
+            <div className="field">
+              <label htmlFor="user_email">Email</label>
+              <input id="user_email" name="user_email" type="email" autoComplete="email" required />
+            </div>
+            <div className="field">
+              <label htmlFor="message">Message</label>
+              <textarea id="message" name="message" rows="6" required />
+            </div>
+            <button className="btn btn-primary btn-still" type="submit" disabled={status === "sending"}>
+              {status === "sending" ? "Sending…" : "Send message"}
+            </button>
+            <p className="form-status" role="status">
+              {status === "sending" ? "Sending your message." : ""}
+            </p>
+          </form>
+        ) : (
+          <div className="contact-fallback">
+            <p>The message form is unavailable in this environment.</p>
+            <a className="btn btn-primary" href={`mailto:${profile.email}`}>Email {profile.email}</a>
+          </div>
+        )}
+      </div>
+      {toast ? (
+        <div className={`toast is-${toast.kind}`} role="alert">
+          <p>{toast.text}</p>
+          {toast.detail && toast.detail !== toast.text ? <p className="toast-detail">{toast.detail}</p> : null}
+          <button type="button" className="text-button" onClick={() => setToast(null)}>Dismiss</button>
+        </div>
+      ) : null}
+    </section>
+  );
+}

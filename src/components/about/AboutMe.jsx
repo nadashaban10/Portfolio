@@ -1,67 +1,56 @@
-import React from "react";
-import { motion } from "framer-motion";
-import "./aboutme.css";
+import { about, education, profile } from "../../data/site";
+import SectionHeading from "../ui/SectionHeading";
+import Reveal from "../motion/Reveal";
 
-const AboutMe = () => {
-  const containerVariants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.8, staggerChildren: 0.2 } },
-  };
-
-  const childVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
-  };
-
+export default function AboutMe() {
   return (
-    <section id="about"
-     className="about-me-section">
-      <motion.div 
-        className="Devcontainer"
-        variants={containerVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
-      >
-        <motion.h2 
-          className="section-title"
-          variants={childVariants}
-        >
-          About Me
-        </motion.h2>
-        <motion.p 
-          className="section-description"
-          variants={childVariants}
-        >
-          Hello! I'm <span className="highlight">Nada Shaban </span>, a passionate frontend developer based in Cairo, Egypt.
-          With a strong foundation in web technologies and UI/UX design, I aim to build dynamic, user-centered applications. I have a
-          background in Software Engineering and GIS, which equips me with a unique perspective on problem-solving and spatial
-          visualization in tech projects.
-        </motion.p>
+    <section className="section" id="about">
+      <div className="container">
+        <div className="about-layout">
+          <div className="about-window">
+            <div className="about-window-bar" aria-hidden="true">
+              <span />
+              <span />
+              <span />
+            </div>
+            <figure className="about-portrait">
+              <img src="/images/WhatappImage.jpg" alt={`Portrait of ${profile.fullName}`} />
+            </figure>
+          </div>
+          <div>
+            <SectionHeading
+              eyebrow="About"
+              title="Frontend work, with a Software Engineering track behind it."
+            />
+            <div className="about-copy">
+              {about.paragraphs.map((paragraph) => (
+                <Reveal key={paragraph.slice(0, 24)}>
+                  <p>{paragraph}</p>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </div>
 
-        <motion.div 
-          className="content"
-          variants={containerVariants}
-        >
-          <motion.h3 
-            className="subsection-title"
-            variants={childVariants}
-          >
-            Skills
-          </motion.h3>
-          <motion.ul 
-            className="list"
-            variants={containerVariants}
-          >
-            <motion.li variants={childVariants}>React.js, Redux Toolkit</motion.li>
-            <motion.li variants={childVariants}>HTML, CSS</motion.li>
-            <motion.li variants={childVariants}>Linux OS, MySQL</motion.li>
-            <motion.li variants={childVariants}>Familiar with APIs, web servers, and networking</motion.li>
-          </motion.ul>
-        </motion.div>
-      </motion.div>
+        <ul className="education-list">
+          {education.map((item) => (
+            <li key={item.school} className="education-card">
+              <p className="eyebrow">Education</p>
+              <h3>{item.program}</h3>
+              <p className="education-school">{item.school}</p>
+              <p className="role-period">{item.period}</p>
+              <p>{item.detail}</p>
+              {item.points ? (
+                <ul className="education-points">
+                  {item.points.map((point) => (
+                    <li key={point}>{point}</li>
+                  ))}
+                </ul>
+              ) : null}
+            </li>
+          ))}
+        </ul>
+      </div>
     </section>
   );
-};
-
-export default AboutMe;
+}
